@@ -1,0 +1,59 @@
+<div class="panel-heading">
+    <h3 class="panel-title"><i class="glyphicon glyphicon-exclamation-sign"></i> {{titol}}</h3>
+</div>
+<div class="panel-body">
+    {% if alertas %}
+        {% for alerta in alertas %}
+            {% if alerta.prioridad == 1 %}
+                <div class="alert alert-success">
+            {% elif alerta.prioridad == 2 %}
+                <div class="alert alert-warning">
+            {% else %}
+                <div class="alert alert-danger">
+            {% endif %}
+                <div class="row">
+                    <div class="col-sm-7 col-md-8 col-lg-9">
+                        <h4><strong>{{alerta.titol}}</strong></h4>
+                        <h6><a href="#">Proyecto: {{alerta.projecte.titol}}</a></h6>
+                        <p id="alert_descripcio">
+                            {{alerta.descripcio}}
+                        </p>
+                    </div>
+                    <div id="alert_visto" class="col-sm-5 col-md-4 col-lg-3">
+                        <p id="revisado" onclick="marcarrevisado({{alerta.id}})"><span class="glyphicon glyphicon-eye-open"></span>
+                        {% if alerta.llegit == 1 %}
+                            Marcar como pendiente
+                        {% else %}
+                            Marcar como revisado
+                        {% endif %}
+                        </p>
+                    </div>
+                    <div id="alert_visto" class="col-sm-5 col-md-4 col-lg-3">
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#{{alerta.id}}">Detalles</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id={{alerta.id}} role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h3 class="modal-title">{{alerta.titol}}</h3>
+                            <br/>
+                            <h5><a href="#">Proyecto: {{alerta.projecte.titol}}</a></h5>
+                        </div>
+                        <div class="modal-body">
+                            <p>{{alerta.descripcio}}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No hay alertas</p>
+    {% endif %}
+</div>

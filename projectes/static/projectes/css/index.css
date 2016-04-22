@@ -1,0 +1,37 @@
+div#row_heading{
+	margin-bottom: 15px;
+}
+
+.buton_alert{
+	width: 100%;
+	margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+div#page-wrapper, div#wrapper, body#body, html#html{
+	min-height: 100%;
+}
+
+img#icon{
+	max-width: 35px;
+}
+
+p#alert_descripcio{
+	margin-bottom: 0px;
+}
+
+div#alert_visto{
+	text-align: right;
+}
+
+p#revisado{
+	cursor:pointer;
+}
+
+.modal-dialog{
+	width: 65%;
+}
+
+a{
+	cursor: pointer;
+}
