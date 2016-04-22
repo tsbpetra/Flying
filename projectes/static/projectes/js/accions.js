@@ -54,6 +54,14 @@ function enlaceProyectos(){
 		}
 	});
 }
+function enlaceProyectos(){
+	$.ajax({
+		url: 'dadesgrafics/1.txt',
+		success: function(data) {
+			$('#page-wrapper').html(data);
+		}
+	});
+}
 function o_proyectos(){
 	var tipo = 0;
 	if (document.getElementById('innovacion').checked) {
