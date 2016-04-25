@@ -36,9 +36,7 @@
                                     <div class="col-sm-7 col-md-8 col-lg-9">
                                         <h4><strong>{{alerta.titol}}</strong></h4>
                                         <h6><a href="#">Proyecto: {{alerta.projecte.titol}}</a></h6>
-                                        <p id="alert_descripcio">
-                                            {{alerta.descripcio}}
-                                        </p>
+                                        <h6>Alerta creada dia {{alerta.data}}</h6>
                                     </div>
                                     <div id="alert_visto" class="col-sm-5 col-md-4 col-lg-3">
                                         <p onclick="marcarrevisado({{alerta.id}})" id="revisado"><span class="glyphicon glyphicon-eye-open"></span> Marcar como revisado</p>
@@ -61,6 +59,10 @@
                                         <div class="modal-body">
                                             <p>{{alerta.descripcio}}</p>
                                         </div>
+                                        <p class="modal-body">
+                                            <strong>Afecta a la metrica: </strong>{{alerta.metrica.descripcio}}
+                                        </p>
+
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                         </div>
