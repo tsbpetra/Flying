@@ -96,4 +96,38 @@ function getForm(){
 		}
 	});
 }
+
+function calidad(){
+	$.ajax({
+		url: 'proyectos/3',
+		success: function(data) {
+			$('#cont_alertas').html(data);
+		}
+	});
+}
+function todas_p(){
+	$.ajax({
+		url: 'proyectos/0',
+		success: function(data) {
+			$('#cont_alertas').html(data);
+		}
+	});
+}
+function innov(){
+	$.ajax({
+		url: 'proyectos/2',
+		success: function(data) {
+			$('#cont_alertas').html(data);
+		}
+	});
+}
+function seguridad(){
+	$.ajax({
+		url: 'proyectos/1',
+		success: function(data) {
+			$('#cont_alertas').html(data);
+		}
+	});
+}
+
 enlaceAlertes();

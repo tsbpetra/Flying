@@ -23,7 +23,7 @@ def propuestas_menu(request):
 	return HttpResponse(template.render(context, request))
 
 def proyectos_menu(request):
-	proyectos = Proyecto.objects.all()
+	proyectos = Propuesta.objects.all()
 	context = {'proyectos': proyectos}
 	template = loader.get_template('projectes/proyectos_menu.html')
 	return HttpResponse(template.render(context, request))
@@ -45,10 +45,14 @@ def tipus(request, tipo):
 
 def tipoProyecto(request, tipo):
 	if tipo == '0':
-		proyectos = Proyecto.objects.all()
-	else:
-		proyectos = Proyecto.objects.filter(tipo=tipo)
-	template = loader.get_template('projectes/objetivo_proyectos.html')
+		proyectos = Propuesta.objects.all()
+	if tipo == '1':
+		proyectos = Propuesta.objects.all()
+	if tipo == '2':
+		proyectos = Propuesta.objects.all()
+	if tipo == '3':
+		proyectos = Propuesta.objects.all()
+	template = loader.get_template('projectes/proyecto_vista.html')
 	context = {'proyectos': proyectos}
 	return HttpResponse(template.render(context, request))
 
