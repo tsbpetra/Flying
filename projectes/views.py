@@ -44,14 +44,16 @@ def tipus(request, tipo):
 	return HttpResponse(template.render(context, request))
 
 def tipoProyecto(request, tipo):
+	objeto1 = Objetivo.objects.all()
+
 	if tipo == '0':
 		proyectos = Propuesta.objects.all()
 	if tipo == '1':
-		proyectos = Propuesta.objects.all()
+		proyectos = Propuesta.objects.filter(objetivo = objeto1[0])
 	if tipo == '2':
-		proyectos = Propuesta.objects.all()
+		proyectos = Propuesta.objects.filter(objetivo = objeto1[1])
 	if tipo == '3':
-		proyectos = Propuesta.objects.all()
+		proyectos = Propuesta.objects.filter(objetivo = objeto1[2])
 	template = loader.get_template('projectes/proyecto_vista.html')
 	context = {'proyectos': proyectos}
 	return HttpResponse(template.render(context, request))
