@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
+from .eleccions import * 
 
 class Principio(models.Model):
 	titol=models.CharField(max_length=200)
@@ -40,23 +41,13 @@ class Propuesta(models.Model):
 	objetivo=models.ForeignKey(Objetivo, on_delete=models.CASCADE)
 	principio=models.ForeignKey(Principio, on_delete=models.CASCADE)
 	evaluacion =models.ForeignKey(Evaluacion, on_delete=models.CASCADE)
-	STATUS_CHOICES = (
-		(1, 'Pendiente'),
-		(2, 'Rechazada'),
-		(3, 'Aplazada'),
-		(4, 'Proyecto'),
-	)
-	estado = models.IntegerField(default=1, choices=STATUS_CHOICES)
+	estado = models.IntegerField(default=1, choices=STATUS_CHOICES_P)
 
 class Metrica(models.Model):
 	ficher=models.CharField(max_length=200)
 	descripcio=models.CharField(max_length=500)
 	proyecto=models.ForeignKey(Propuesta, on_delete=models.CASCADE)
-	STATUS_CHOICES = (
-		(1, 'Presupost'),
-		(2, 'Dades'),
-	)
-	tipo = models.IntegerField(default=1, choices=STATUS_CHOICES)
+	tipo = models.IntegerField(default=1, choices=STATUS_CHOICES_M)
 
 class Alerta(models.Model):
 	titol=models.CharField(max_length=200)
@@ -65,9 +56,4 @@ class Alerta(models.Model):
 	llegit=models.IntegerField(default=0)
 	projecte=models.ForeignKey(Propuesta, on_delete=models.CASCADE)
 	metrica=models.ForeignKey(Metrica, on_delete=models.CASCADE)
-	STATUS_CHOICES = (
-		(1, 'Baja'),
-		(2, 'Media'),
-		(3, 'Alta'),
-	)
-	prioridad = models.IntegerField(default=1, choices=STATUS_CHOICES)
+	prioridad = models.IntegerField(default=1, choices=STATUS_CHOICES_A)
