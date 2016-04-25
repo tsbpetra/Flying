@@ -14,7 +14,7 @@ class Objetivo(models.Model):
 	descripcio=models.CharField(max_length=500)
 	principio=models.ForeignKey(Principio, on_delete=models.CASCADE)
 	def __str__(self):
-		return self.nom
+		return unicode(self.nom).encode('utf-8')
 
 class Evaluacion(models.Model):
 	titol=models.CharField(max_length=200)
@@ -45,7 +45,7 @@ class Propuesta(models.Model):
 	evaluacion =models.ForeignKey(Evaluacion, on_delete=models.CASCADE)
 	estado = models.IntegerField(default=1, choices=STATUS_CHOICES_P)
 	def __str__(self):
-		return self.titol
+		return unicode(self.titol).encode('utf-8')
 
 class Metrica(models.Model):
 	ficher=models.CharField(max_length=200)
