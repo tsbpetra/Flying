@@ -1,8 +1,7 @@
 from django import forms
 import datetime
 from django.forms.extras.widgets import SelectDateWidget
-from .eleccions import * 
-from .models import Principio
+from .models import Principio, Evaluacion, Objetivo
 
 class addPropuestaForm(forms.Form):
 	titol = forms.CharField(label="Titulo propuesta",max_length=200, required=True)
@@ -11,3 +10,5 @@ class addPropuestaForm(forms.Form):
 	presupuesto = forms.IntegerField(label="Presupuesto", required=True)
 	responsable = forms.CharField(label="Responsable",max_length=200, required=True)
 	principio = forms.ModelChoiceField(queryset=Principio.objects.all(), required=True)
+	evaluacion = forms.ModelChoiceField(queryset=Evaluacion.objects.all(), required=True)
+	objetivo = forms.ModelChoiceField(queryset=Objetivo.objects.all(), required=True)

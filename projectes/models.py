@@ -33,6 +33,8 @@ class Evaluacion(models.Model):
 	nconformidad=models.IntegerField(default=0)
 	dconducta = models.CharField(max_length=200)
 	nconducta=models.IntegerField(default=0)
+	def __str__(self):
+		return unicode(self.titol).encode('utf-8')
 
 class Propuesta(models.Model):
 	titol=models.CharField(max_length=200)

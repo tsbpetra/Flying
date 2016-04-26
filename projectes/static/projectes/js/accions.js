@@ -34,13 +34,21 @@ function generarProyecto(id){
 	$.ajax({
 		url: 'propuestas/'+id,
 		success: function(data) {
-			enlacePropuestas();
+			$('#page-wrapper').html(data);
 		}
 	});
 }
 function enlacePropuestas(){
 	$.ajax({
 		url: 'propuestas',
+		success: function(data) {
+			$('#page-wrapper').html(data);
+		}
+	});
+}
+function enlacePropuestasTipo(id){
+	$.ajax({
+		url: 'propuestas/get/'+id,
 		success: function(data) {
 			$('#page-wrapper').html(data);
 		}
@@ -126,6 +134,15 @@ function seguridad(){
 		url: 'proyectos/1',
 		success: function(data) {
 			$('#cont_alertas').html(data);
+		}
+	});
+}
+function estadoPropuesta(id, estado){
+	$.ajax({
+		url: 'propuestas/estado/'+id+'/'+estado,
+		success: function(data) {
+			$('#page-wrapper').html('');
+			$('#page-wrapper').html(data);
 		}
 	});
 }

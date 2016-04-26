@@ -4,6 +4,7 @@ from django.template import loader
 from .models import *
 from django.utils import timezone
 from .forms import addPropuestaForm
+from django.db.models import Q
 
 
 def index(request):
@@ -16,8 +17,23 @@ def alertas_menu(request):
 	template = loader.get_template('projectes/alertas_menu.html')
 	return HttpResponse(template.render(context, request))
 
+def propuestas_tipo(request, tipo):
+	propuestas = Propuesta.objects.filter(estado = tipo)
+	context = {'propuestas': propuestas}
+	template = loader.get_template('projectes/propuestas_menu.html')
+	return HttpResponse(template.render(context, request))
+
+def setTipoPropuesta(request, id, tipo):
+	propuesta = Propuesta.objects.get(id = id)
+	propuesta.estado = tipo
+	propuesta.save()
+	propuestas = Propuesta.objects.filter(estado = tipo)
+	context = {'propuestas': propuestas}
+	template = loader.get_template('projectes/propuestas_menu.html')
+	return HttpResponse(template.render(context, request))
+
 def propuestas_menu(request):
-	propuestas = Propuesta.objects.all()
+	propuestas = Propuesta.objects.filter(~Q(estado = 4))
 	context = {'propuestas': propuestas}
 	template = loader.get_template('projectes/propuestas_menu.html')
 	return HttpResponse(template.render(context, request))
@@ -69,10 +85,9 @@ def visto(request, id_par):
 
 def generarProyecto(request, id_par):
 	propuesta = Propuesta.objects.get(id=id_par)
-	proyecto = Proyecto(titol=propuesta.titol, descripcio=propuesta.descripcio, data=timezone.now(), presupuesto=propuesta.presupuesto)
-	proyecto.save()
-	propuesta.delete()
-	return HttpResponse(request)
+	propuesta.estado = 4
+	propuesta.save()
+	return proyectos_menu(request)
 
 def formPropuesta(request):
     # if this is a POST request we need to process the form data
@@ -80,12 +95,15 @@ def formPropuesta(request):
         form = addPropuestaForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
-			print form.cleaned_data['presupuesto']
 			propuesta = Propuesta(
 				titol=form.cleaned_data['titol'],
-				descripcio=form.cleaned_data['descripcio'],
+				descripcion=form.cleaned_data['descripcio'],
 				data=form.cleaned_data['data'],
-				presupuesto=int(form.cleaned_data['presupuesto']))
+				presupuesto=int(form.cleaned_data['presupuesto']),
+				responsable=form.cleaned_data['responsable'],
+				objetivo=form.cleaned_data['objetivo'],
+				principio=form.cleaned_data['principio'],
+				evaluacion=form.cleaned_data['evaluacion'])
 			propuesta.save()
 			return HttpResponseRedirect('..')
     else:
