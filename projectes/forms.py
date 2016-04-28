@@ -12,3 +12,13 @@ class addPropuestaForm(forms.Form):
 	principio = forms.ModelChoiceField(queryset=Principio.objects.all(), required=True)
 	evaluacion = forms.ModelChoiceField(queryset=Evaluacion.objects.all(), required=True)
 	objetivo = forms.ModelChoiceField(queryset=Objetivo.objects.all(), required=True)
+
+class addObjetivoForm(forms.Form):
+	nom = forms.CharField(label="Nombre del objetivo",max_length=200, required=True)
+	descripcio = forms.CharField(label="Descripcion",max_length=500, required=True, widget= forms.TextInput(attrs={'style': 'width:100%'}))
+	principio = forms.ModelChoiceField(queryset=Principio.objects.all(), required=True)
+
+class modObjetivoForm(forms.Form):
+	nom = forms.CharField(label="Nombre del objetivo",max_length=200, required=True)
+	descripcio = forms.CharField(label="Descripcion",max_length=500, required=True, widget= forms.TextInput(attrs={'style': 'width:100%'}))
+	principio = forms.ModelChoiceField(queryset=Principio.objects.all(), required=True)

@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from .models import *
 from django.utils import timezone
-from .forms import addPropuestaForm
+from .forms import addPropuestaForm, addObjetivoForm, modObjetivoForm
 from django.db.models import Q
 
 
@@ -15,6 +15,12 @@ def alertas_menu(request):
 	alertas = Alerta.objects.filter(llegit=0)
 	context = {'alertas': alertas}
 	template = loader.get_template('projectes/alertas_menu.html')
+	return HttpResponse(template.render(context, request))
+
+def generarOjetivos(request):
+	objetivo = Objetivo.objects.all()
+	context = {'objetivo': objetivo}
+	template = loader.get_template('projectes/objetivos_menu.html')
 	return HttpResponse(template.render(context, request))
 
 def propuestas_tipo(request, tipo):
@@ -30,6 +36,14 @@ def setTipoPropuesta(request, id, tipo):
 	propuestas = Propuesta.objects.filter(estado = tipo)
 	context = {'propuestas': propuestas}
 	template = loader.get_template('projectes/propuestas_menu.html')
+	return HttpResponse(template.render(context, request))
+
+def eliminarObj(request, id):
+	obj = Objetivo.objects.get(id = id)
+	obj.delete()
+	objetivo = Objetivo.objects.all()
+	context = {'objetivo': objetivo}
+	template = loader.get_template('projectes/objetivos_menu.html')
 	return HttpResponse(template.render(context, request))
 
 def propuestas_menu(request):
@@ -111,8 +125,42 @@ def formPropuesta(request):
 
     return render(request, 'projectes/form_propuestas.html', {'form': form})
 
+def formObjetivo(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        form = addObjetivoForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+			obj = Objetivo(
+				nom=form.cleaned_data['nom'],
+				descripcio=form.cleaned_data['descripcio'],
+				principio=form.cleaned_data['principio'])
+			obj.save()
+			return HttpResponseRedirect('..')
+    else:
+		form = addObjetivoForm()	
+
+    return render(request, 'projectes/form_obj.html', {'form': form})
+
 def proyecto(request, id_pro):
 	proyecto = Proyecto.objects.get(id=id_pro)
 	context = {'projecte': proyecto}
 	template = loader.get_template('projectes/proyecto.html')
 	return HttpResponse(template.render(context, request))
+
+def modificarObj(request, id):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        form = addObjetivoForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+			obj = Objetivo(
+				nom=form.cleaned_data['nom'],
+				descripcio=form.cleaned_data['descripcio'],
+				principio=form.cleaned_data['principio'])
+			obj.save()
+			return HttpResponseRedirect('..')
+    else:
+		form = addObjetivoForm()	
+
+    return render(request, 'projectes/form_obj_mod.html', {'form': form})

@@ -30,6 +30,16 @@ function marcarrevisado(id){
 		}
 	});
 }
+
+function enlaceObjetivos(){
+	$.ajax({
+		url: 'objetivos',
+		success: function(data) {
+			$('#page-wrapper').html(data);
+		}
+	});
+}
+
 function generarProyecto(id){
 	$.ajax({
 		url: 'propuestas/'+id,
@@ -62,6 +72,7 @@ function enlaceProyectos(){
 		}
 	});
 }
+
 function o_proyectos(){
 	var tipo = 0;
 	if (document.getElementById('innovacion').checked) {
@@ -99,6 +110,15 @@ function abrirProyecto(id){
 function getForm(){
 	$.ajax({
 		url: 'propuestas/add',
+		success: function(data) {
+			$('#modal_form').html(data);
+		}
+	});
+}
+
+function getFormObjetivo(){
+	$.ajax({
+		url: 'objetivos/add',
 		success: function(data) {
 			$('#modal_form').html(data);
 		}
@@ -143,6 +163,25 @@ function estadoPropuesta(id, estado){
 		success: function(data) {
 			$('#page-wrapper').html('');
 			$('#page-wrapper').html(data);
+		}
+	});
+}
+
+function eliminarObj(id){
+	$.ajax({
+		url: 'objetivo/eliminar/'+id,
+		success: function(data) {
+			$('#page-wrapper').html('');
+			$('#page-wrapper').html(data);
+		}
+	});
+}
+
+function modificarObj(id){
+	$.ajax({
+		url: 'objetivo/mod/'+id,
+		success: function(data) {
+			$('#mod_form').html(data);
 		}
 	});
 }

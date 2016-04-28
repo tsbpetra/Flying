@@ -1,0 +1,96 @@
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div id="row_heading" class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Objetivos</h1>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-12">
+                <button onclick="getFormObjetivo()" type="button" class="btn btn-info" data-toggle="modal" data-target="#modaladd">Añadir Objetivo</button>
+            <div class="modal fade" id="modaladd" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h3 class="modal-title">Añadir Objetivo</h3>
+                            <br/>
+                        </div>
+                        <div id="modal_form" class="modal-body">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="cont_alertas" class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Lista Objetivos</h3>
+                </div>
+                <div class="panel-body">
+                    {% if objetivo %}
+                        {% for obj in objetivo %}
+                            <div class="alert alert-info">
+                                <div class="row">
+                                    <div class="col-sm-7 col-md-8 col-lg-9">
+                                        <h4><strong>{{obj.nom}}</strong></h4>
+                                    </div>
+                                    <div class="col-sm-7 col-md-8 col-lg-9">
+                                        <p>{{obj.descripcio}}</p>
+                                    </div>
+                                    <div class="col-sm-7 col-md-8 col-lg-9">
+                                        <p><strong>{{obj.principio.titol}}</strong></p>
+                                    </div>                                
+                                    <div id="alert_visto" class="col-sm-5 col-md-4 col-lg-3">
+                                        <button onclick="modificarObj({{obj.id}})" type="button" class="btn btn-warning" data-toggle="modal" data-target="#modaladd1">Modificar</button>
+                                        <div class="modal fade" id="modaladd1" role="dialog">
+                                            <div class="modal-dialog">
+                                                <!-- Modal content-->
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        <h4 class="modal-title">Modificar Modal</h4>
+                                                        <br/>
+                                                    </div>
+                                                    <div id="mod_form" class="modal-body">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                    </div>
+                                                 </div>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn btn-danger" onclick="eliminarObj({{obj.id}})" >Eliminar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>No hay objetivos</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+
+</div>
+<!-- /.container-fluid -->
+
+<!-- 
+                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+                    <button onclick="pendientes()" type="button" class="btn btn-danger buton_alert">Pendientes</button>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+                    <button onclick="revisadas()" type="button" class="btn btn-success buton_alert">Revisadas</button>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+                    <button onclick="todas()" type="button" class="btn btn-primary buton_alert">Todas</button>
+                </div>
+-->
