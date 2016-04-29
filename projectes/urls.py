@@ -17,6 +17,5 @@ urlpatterns = [
     url(r'^objetivos/$', views.generarOjetivos, name='generarOjetivos'),
     url(r'^objetivos/add$', views.formObjetivo, name='formObjetivo'),
     url(r'^objetivo/eliminar/(?P<id>[0-9]+)/$', views.eliminarObj, name='eliminarObj'),
-    url(r'^objetivo/mod$', views.modificarObj, name='modificarObj'),
     url(r'^objetivo/mod/(?P<id>[0-9]+)/$', views.modificarObj, name='modificarObj'),
 ]

@@ -1,5 +1,5 @@
 <div id="formulari" class="row">
-    <form class="form-horizontal" action="./objetivo/mod/"{{id}} role="form" method="POST">
+    <form class="form-horizontal" action="./objetivo/mod/{{item}}" role="form" method="POST">
     	{% csrf_token %}
         {% for field in form %}
             {% if field.errors %}
@@ -13,7 +13,7 @@
             {% endif %}
         {% endfor %}
         <div class="form-actions col-lg-2 col-lg-offset-4">
-            <button type="submit" class="btn btn-primary" style="width: 100%">Añadir</button>
+            <button type="submit" class="btn btn-primary" style="width: 100%">Modificar</button>
         </div>
     </form>
 </div>

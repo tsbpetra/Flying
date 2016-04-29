@@ -150,17 +150,18 @@ def proyecto(request, id_pro):
 
 def modificarObj(request, id):
     # if this is a POST request we need to process the form data
+    item = Objetivo.objects.get(id=id)
     if request.method == 'POST':
-        form = addObjetivoForm(request.POST)
+        form = modObjetivoForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
-			obj = Objetivo(
-				nom=form.cleaned_data['nom'],
-				descripcio=form.cleaned_data['descripcio'],
-				principio=form.cleaned_data['principio'])
-			obj.save()
+			item.nom=form.cleaned_data['nom']
+			item.descripcio=form.cleaned_data['descripcio']
+			item.principio=form.cleaned_data['principio']
+			item.save()
 			return HttpResponseRedirect('..')
     else:
-		form = addObjetivoForm()	
+		form = modObjetivoForm(initial={'nom': item.nom, 'descripcio': item.descripcio, 'principio': item.principio})
 
-    return render(request, 'projectes/form_obj_mod.html', {'form': form})
+
+    return render(request, 'projectes/form_obj_mod.html', {'form': form, 'item':id})
