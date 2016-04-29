@@ -45,7 +45,7 @@
                                         <p>{{obj.descripcio}}</p>
                                     </div>
                                     <div class="col-sm-7 col-md-8 col-lg-9">
-                                        <p><strong>{{obj.principio.titol}}</strong></p>
+                                        <p><strong>Este objetivo tiene como principio: </strong>{{obj.principio.titol}}</p>
                                     </div>                                
                                     <div id="alert_visto" class="col-sm-5 col-md-4 col-lg-3">
                                         <button onclick="modificarObj({{obj.id}})" type="button" class="btn btn-warning" data-toggle="modal" data-target="#modaladd1">Modificar</button>
@@ -55,7 +55,6 @@
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                        <h4 class="modal-title">Modificar Modal</h4>
                                                         <br/>
                                                     </div>
                                                     <div id="mod_form" class="modal-body">
