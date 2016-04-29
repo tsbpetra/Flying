@@ -159,7 +159,7 @@ def modificarObj(request, id):
 			item.descripcio=form.cleaned_data['descripcio']
 			item.principio=form.cleaned_data['principio']
 			item.save()
-			return HttpResponseRedirect('..')
+			return HttpResponseRedirect('../../..')
     else:
 		form = modObjetivoForm(initial={'nom': item.nom, 'descripcio': item.descripcio, 'principio': item.principio})
 
