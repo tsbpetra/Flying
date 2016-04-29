@@ -18,4 +18,8 @@ urlpatterns = [
     url(r'^objetivos/add$', views.formObjetivo, name='formObjetivo'),
     url(r'^objetivo/eliminar/(?P<id>[0-9]+)/$', views.eliminarObj, name='eliminarObj'),
     url(r'^objetivo/mod/(?P<id>[0-9]+)/$', views.modificarObj, name='modificarObj'),
+    url(r'^principios/$', views.generarPrincipios, name='generarPrincipios'),
+    url(r'^principio/mod/(?P<id>[0-9]+)/$', views.modificarPrincipio, name='modificarPrincipio'),
+    url(r'^principio/eliminar/(?P<id>[0-9]+)/$', views.eliminarPrin, name='eliminarPrin'),
+    url(r'^principio/add$', views.formPrincipio, name='formPrincipio'),
 ]

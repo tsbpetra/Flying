@@ -18,7 +18,15 @@ class addObjetivoForm(forms.Form):
 	descripcio = forms.CharField(label="Descripcion",max_length=500, required=True, widget= forms.TextInput(attrs={'style': 'width:100%'}))
 	principio = forms.ModelChoiceField(queryset=Principio.objects.all(), required=True)
 
+class addPrincipioForm(forms.Form):
+	titol = forms.CharField(label="Nombre del principio",max_length=200, required=True)
+	descripcio = forms.CharField(label="Descripcion",max_length=500, required=True, widget= forms.TextInput(attrs={'style': 'width:100%'}))
+
 class modObjetivoForm(forms.Form):
 	nom = forms.CharField(label="Nombre del objetivo",max_length=200, required=True)
 	descripcio = forms.CharField(label="Descripcion",max_length=500, required=True, widget= forms.TextInput(attrs={'style': 'width:100%'}))
 	principio = forms.ModelChoiceField(queryset=Principio.objects.all(), required=True)
+
+class modPrincipioForm(forms.Form):
+	nom = forms.CharField(label="Nombre del principio",max_length=200, required=True)
+	descripcio = forms.CharField(label="Descripcion",max_length=500, required=True, widget= forms.TextInput(attrs={'style': 'width:100%'}))

@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from .models import *
 from django.utils import timezone
-from .forms import addPropuestaForm, addObjetivoForm, modObjetivoForm
+from .forms import addPropuestaForm, addObjetivoForm, modObjetivoForm, modPrincipioForm, addPrincipioForm
 from django.db.models import Q
 
 
@@ -21,6 +21,12 @@ def generarOjetivos(request):
 	objetivo = Objetivo.objects.all()
 	context = {'objetivo': objetivo}
 	template = loader.get_template('projectes/objetivos_menu.html')
+	return HttpResponse(template.render(context, request))
+
+def generarPrincipios(request):
+	objetivo = Principio.objects.all()
+	context = {'objetivo': objetivo}
+	template = loader.get_template('projectes/principios_menu.html')
 	return HttpResponse(template.render(context, request))
 
 def propuestas_tipo(request, tipo):
@@ -142,6 +148,23 @@ def formObjetivo(request):
 
     return render(request, 'projectes/form_obj.html', {'form': form})
 
+def formPrincipio(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        form = addPrincipioForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+			obj = Principio(
+				titol=form.cleaned_data['titol'],
+				descripcio=form.cleaned_data['descripcio'])
+			obj.save()
+			return HttpResponseRedirect('..')
+    else:
+		form = addPrincipioForm()	
+
+    return render(request, 'projectes/form_prin.html', {'form': form})
+
+
 def proyecto(request, id_pro):
 	proyecto = Proyecto.objects.get(id=id_pro)
 	context = {'projecte': proyecto}
@@ -165,3 +188,28 @@ def modificarObj(request, id):
 
 
     return render(request, 'projectes/form_obj_mod.html', {'form': form, 'item':id})
+
+def modificarPrincipio(request, id):
+    # if this is a POST request we need to process the form data
+    item = Principio.objects.get(id=id)
+    if request.method == 'POST':
+        form = modPrincipioForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+			item.titol=form.cleaned_data['nom']
+			item.descripcio=form.cleaned_data['descripcio']
+			item.save()
+			return HttpResponseRedirect('../../..')
+    else:
+		form = modPrincipioForm(initial={'nom': item.titol, 'descripcio': item.descripcio})
+
+
+    return render(request, 'projectes/form_prin_mod.html', {'form': form, 'item':id})
+
+def eliminarPrin(request, id):
+	obj = Principio.objects.get(id = id)
+	obj.delete()
+	objetivo = Principio.objects.all()
+	context = {'objetivo': objetivo}
+	template = loader.get_template('projectes/principios_menu.html')
+	return HttpResponse(template.render(context, request))

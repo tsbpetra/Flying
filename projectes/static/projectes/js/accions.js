@@ -40,6 +40,15 @@ function enlaceObjetivos(){
 	});
 }
 
+function enlacePrincipios(){
+	$.ajax({
+		url: 'principios',
+		success: function(data) {
+			$('#page-wrapper').html(data);
+		}
+	});
+}
+
 function generarProyecto(id){
 	$.ajax({
 		url: 'propuestas/'+id,
@@ -125,6 +134,15 @@ function getFormObjetivo(){
 	});
 }
 
+function getFormPrincipio(){
+	$.ajax({
+		url: 'principio/add',
+		success: function(data) {
+			$('#modal_form').html(data);
+		}
+	});
+}
+
 function calidad(){
 	$.ajax({
 		url: 'proyectos/3',
@@ -186,4 +204,22 @@ function modificarObj(id){
 	});
 }
 
+function modificarPrincipio(id){
+	$.ajax({
+		url: 'principio/mod/'+id,
+		success: function(data) {
+			$('#mod_form').html(data);
+		}
+	});
+}
+
+function eliminarPrin(id){
+	$.ajax({
+		url: 'principio/eliminar/'+id,
+		success: function(data) {
+			$('#page-wrapper').html('');
+			$('#page-wrapper').html(data);
+		}
+	});
+}
 enlaceAlertes();
