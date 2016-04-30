@@ -164,12 +164,12 @@ def formPrincipio(request):
 
     return render(request, 'projectes/form_prin.html', {'form': form})
 
-
-def proyecto(request, id_pro):
-	proyecto = Proyecto.objects.get(id=id_pro)
-	context = {'projecte': proyecto}
-	template = loader.get_template('projectes/proyecto.html')
+def selectProyecto(request, id):
+	proyecto = Propuesta.objects.get(id=id)
+	context = {'proyecto': proyecto}
+	template = loader.get_template('projectes/selectProyecto.html')
 	return HttpResponse(template.render(context, request))
+
 
 def modificarObj(request, id):
     # if this is a POST request we need to process the form data

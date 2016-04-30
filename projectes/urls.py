@@ -12,7 +12,6 @@ urlpatterns = [
     url(r'^propuestas/estado/(?P<id>[0-9]+)/(?P<tipo>[1-3]+)/$', views.setTipoPropuesta, name='propuestas_tipo_propuesta'),
     url(r'^propuestas/(?P<id_par>[0-9]+)/$', views.generarProyecto, name='generarProyecto'),
     url(r'^proyectos/$', views.proyectos_menu, name='proyectos_menu'),
-    url(r'^proyectos/proyecto/(?P<id_pro>[0-9]+)/$', views.proyecto, name='proyecto'),
     url(r'^proyectos/(?P<tipo>[0-9]+)/$', views.tipoProyecto, name='tipoProyecto'),
     url(r'^objetivos/$', views.generarOjetivos, name='generarOjetivos'),
     url(r'^objetivos/add$', views.formObjetivo, name='formObjetivo'),
@@ -22,4 +21,5 @@ urlpatterns = [
     url(r'^principio/mod/(?P<id>[0-9]+)/$', views.modificarPrincipio, name='modificarPrincipio'),
     url(r'^principio/eliminar/(?P<id>[0-9]+)/$', views.eliminarPrin, name='eliminarPrin'),
     url(r'^principio/add$', views.formPrincipio, name='formPrincipio'),
+    url(r'^proyectos/proyecto/individual/(?P<id>[0-9]+)/$', views.selectProyecto, name='selectProyecto'),
 ]

@@ -116,6 +116,15 @@ function abrirProyecto(id){
 		}
 	});
 }
+function selectProyecto(id){
+	$.ajax({
+		url: 'proyectos/proyecto/individual/'+id,
+		success: function(data) {
+			$('#page-wrapper').html(data);
+		}
+	});
+}
+
 function getForm(){
 	$.ajax({
 		url: 'propuestas/add',
