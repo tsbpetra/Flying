@@ -70,7 +70,7 @@ def tipus(request, tipo):
 		alertas = Alerta.objects.all()
 	else:
 		if tipo == '0':
-			titol = 'Alertas pendientes' 
+			titol = 'Alertas pendientes'
 		else:
 			titol = 'Alertas revisadas'
 		alertas = Alerta.objects.filter(llegit=tipo)
@@ -127,7 +127,7 @@ def formPropuesta(request):
 			propuesta.save()
 			return HttpResponseRedirect('..')
     else:
-        form = addPropuestaForm()	
+        form = addPropuestaForm()
 
     return render(request, 'projectes/form_propuestas.html', {'form': form})
 
@@ -144,7 +144,7 @@ def formObjetivo(request):
 			obj.save()
 			return HttpResponseRedirect('..')
     else:
-		form = addObjetivoForm()	
+		form = addObjetivoForm()
 
     return render(request, 'projectes/form_obj.html', {'form': form})
 
@@ -160,7 +160,7 @@ def formPrincipio(request):
 			obj.save()
 			return HttpResponseRedirect('..')
     else:
-		form = addPrincipioForm()	
+		form = addPrincipioForm()
 
     return render(request, 'projectes/form_prin.html', {'form': form})
 
@@ -212,4 +212,10 @@ def eliminarPrin(request, id):
 	objetivo = Principio.objects.all()
 	context = {'objetivo': objetivo}
 	template = loader.get_template('projectes/principios_menu.html')
+	return HttpResponse(template.render(context, request))
+
+def presupuestos(request):
+	presupuestos = Propuesta.objects.all()
+	context = {'presupuestos': presupuestos}
+	template = loader.get_template('projectes/presupuestos.html')
 	return HttpResponse(template.render(context, request))
