@@ -214,8 +214,20 @@ def eliminarPrin(request, id):
 	template = loader.get_template('projectes/principios_menu.html')
 	return HttpResponse(template.render(context, request))
 
-def presupuestos(request):
-	presupuestos = Propuesta.objects.all()
-	context = {'presupuestos': presupuestos}
-	template = loader.get_template('projectes/presupuestos.html')
+def presupuestos_menu(request):
+	proyectos = Propuesta.objects.all()
+	context = {'proyectos': proyectos}
+	template = loader.get_template('projectes/presupuestos_menu.html')
+	return HttpResponse(template.render(context, request))
+
+def metricas_menu(request):
+	proyectos = Propuesta.objects.all()
+	context = {'proyectos': proyectos}
+	template = loader.get_template('projectes/metricas_menu.html')
+	return HttpResponse(template.render(context, request))
+
+def selectMetricas(request, id):
+	metricas = Metrica.objects.get(proyecto=id)
+	context = {'metricas': metricas}
+	template = loader.get_template('projectes/selectMetricas.html')
 	return HttpResponse(template.render(context, request))

@@ -22,5 +22,6 @@ urlpatterns = [
     url(r'^principio/eliminar/(?P<id>[0-9]+)/$', views.eliminarPrin, name='eliminarPrin'),
     url(r'^principio/add$', views.formPrincipio, name='formPrincipio'),
     url(r'^proyectos/proyecto/individual/(?P<id>[0-9]+)/$', views.selectProyecto, name='selectProyecto'),
-    url(r'^presupuestos/$', views.presupuestos, name='presupuestos'),
+    url(r'^presupuestos/$', views.presupuestos_menu, name='presupuestos_menu'),
+    url(r'^metricas/$', views.metricas_menu, name='metricas_menu'),
 ]

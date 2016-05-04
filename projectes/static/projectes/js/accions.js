@@ -241,3 +241,12 @@ function enlacePresupuesto(){
 		}
 	});
 }
+
+function enlaceMetricas(){
+	$.ajax({
+		url: 'metricas',
+		success: function(data) {
+			$('#page-wrapper').html(data);
+		}
+	});
+}
