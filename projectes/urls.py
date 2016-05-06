@@ -24,4 +24,6 @@ urlpatterns = [
     url(r'^proyectos/proyecto/individual/(?P<id>[0-9]+)/$', views.selectProyecto, name='selectProyecto'),
     url(r'^presupuestos/$', views.presupuestos_menu, name='presupuestos_menu'),
     url(r'^metricas/$', views.metricas_menu, name='metricas_menu'),
+    url(r'^evaluaciones/$', views.evaluaciones_menu, name='evaluaciones_menu'),
+    url(r'^evaluaciones/evaluacion/(?P<id>[0-9]+)/$', views.selectEvaluacion, name='selectEvaluacion'),
 ]

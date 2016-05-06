@@ -231,3 +231,15 @@ def selectMetricas(request, id):
 	context = {'metricas': metricas}
 	template = loader.get_template('projectes/selectMetricas.html')
 	return HttpResponse(template.render(context, request))
+
+def evaluaciones_menu(request):
+	evaluaciones = Evaluacion.objects.all()
+	context = {'evaluaciones': evaluaciones}
+	template = loader.get_template('projectes/evaluaciones_menu.html')
+	return HttpResponse(template.render(context, request))
+
+def selectEvaluacion(request, id):
+	evaluacion = Evaluacion.objects.get(id=id)
+	context = {'evaluacion': evaluacion}
+	template = loader.get_template('projectes/selectEvaluacion.html')
+	return HttpResponse(template.render(context, request))

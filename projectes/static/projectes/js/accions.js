@@ -250,3 +250,21 @@ function enlaceMetricas(){
 		}
 	});
 }
+
+function enlaceEvaluaciones(){
+	$.ajax({
+		url: 'evaluaciones',
+		success: function(data) {
+			$('#page-wrapper').html(data);
+		}
+	});
+}
+
+function selectEvaluacion(id){
+	$.ajax({
+		url: 'evaluaciones/evaluacion/'+id,
+		success: function(data) {
+			$('#page-wrapper').html(data);
+		}
+	});
+}
