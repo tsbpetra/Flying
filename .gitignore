@@ -1,8 +1,3 @@
 
 *.pyc
-
 db.sqlite3
-
-projectes/models.pyc
-
-projectes/views.pyc
