@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'^metricas/$', views.metricas_menu, name='metricas_menu'),
     url(r'^evaluaciones/$', views.evaluaciones_menu, name='evaluaciones_menu'),
     url(r'^evaluaciones/evaluacion/(?P<id>[0-9]+)/$', views.selectEvaluacion, name='selectEvaluacion'),
+    url(r'^metricas/projecte/(?P<id>[0-9]+)/$', views.selectMetricasProjecte, name='selectMetrica'),
 ]
