@@ -166,7 +166,8 @@ def formPrincipio(request):
 
 def selectProyecto(request, id):
 	proyecto = Propuesta.objects.get(id=id)
-	context = {'proyecto': proyecto}
+	metricas = Metrica.objects.filter(proyecto=id)
+	context = {'proyecto': proyecto, 'metricas' : metricas}
 	template = loader.get_template('projectes/selectProyecto.html')
 	return HttpResponse(template.render(context, request))
 
