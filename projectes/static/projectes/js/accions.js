@@ -232,3 +232,21 @@ function eliminarPrin(id){
 	});
 }
 enlaceAlertes();
+
+function enlacePresupuesto(){
+	$.ajax({
+		url: 'presupuestos',
+		success: function(data) {
+			$('#page-wrapper').html(data);
+		}
+	});
+}
+
+function enlaceMetricas(){
+	$.ajax({
+		url: 'metricas',
+		success: function(data) {
+			$('#page-wrapper').html(data);
+		}
+	});
+}
