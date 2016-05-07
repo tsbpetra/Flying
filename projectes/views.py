@@ -5,6 +5,8 @@ from .models import *
 from django.utils import timezone
 from .forms import addPropuestaForm, addObjetivoForm, modObjetivoForm, modPrincipioForm, addPrincipioForm, addEvaluacionForm, modEvaluacionForm, addMetricaForm, modMetricaForm
 from django.db.models import Q
+import json
+from django.http import JsonResponse
 
 
 def index(request):
@@ -166,8 +168,7 @@ def formPrincipio(request):
 
 def selectProyecto(request, id):
 	proyecto = Propuesta.objects.get(id=id)
-	metricas = Metrica.objects.filter(proyecto=id)
-	context = {'proyecto': proyecto, 'metricas' : metricas}
+	context = {'proyecto': proyecto}
 	template = loader.get_template('projectes/selectProyecto.html')
 	return HttpResponse(template.render(context, request))
 
@@ -239,6 +240,7 @@ def selectEvaluacion(request, id):
 	template = loader.get_template('projectes/selectEvaluacion.html')
 	return HttpResponse(template.render(context, request))
 
+<<<<<<< HEAD
 def formEvaluacion(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
