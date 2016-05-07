@@ -268,3 +268,68 @@ function selectEvaluacion(id){
 		}
 	});
 }
+
+function getFormEvaluacion(){
+	$.ajax({
+		url: 'evaluacion/add',
+		success: function(data) {
+			$('#modal_form').html(data);
+		}
+	});
+}
+
+function modificarEvaluacion(id){
+	$.ajax({
+		url: 'evaluacion/mod/'+id,
+		success: function(data) {
+			$('#mod_form').html(data);
+		}
+	});
+}
+
+function eliminarEvaluacion(id){
+	$.ajax({
+		url: 'evaluacion/eliminar/'+id,
+		success: function(data) {
+			$('#page-wrapper').html('');
+			$('#page-wrapper').html(data);
+		}
+	});
+}
+
+function getFormMetrica(){
+	$.ajax({
+		url: 'metrica/add',
+		success: function(data) {
+			$('#modal_form').html(data);
+		}
+	});
+}
+
+function modificarMetrica(id){
+	$.ajax({
+		url: 'metrica/mod/'+id,
+		success: function(data) {
+			$('#mod_form').html(data);
+		}
+	});
+}
+
+function eliminarMetrica(id){
+	$.ajax({
+		url: 'metrica/eliminar/'+id,
+		success: function(data) {
+			$('#page-wrapper').html('');
+			$('#page-wrapper').html(data);
+		}
+	});
+}
+
+function selectMetrica(id){
+	$.ajax({
+		url: 'metricas/metrica/'+id,
+		success: function(data) {
+			$('#page-wrapper').html(data);
+		}
+	});
+}

@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from .models import *
 from django.utils import timezone
-from .forms import addPropuestaForm, addObjetivoForm, modObjetivoForm, modPrincipioForm, addPrincipioForm
+from .forms import addPropuestaForm, addObjetivoForm, modObjetivoForm, modPrincipioForm, addPrincipioForm, addEvaluacionForm, modEvaluacionForm, addMetricaForm, modMetricaForm
 from django.db.models import Q
 
 
@@ -222,15 +222,9 @@ def presupuestos_menu(request):
 	return HttpResponse(template.render(context, request))
 
 def metricas_menu(request):
-	proyectos = Propuesta.objects.all()
-	context = {'proyectos': proyectos}
-	template = loader.get_template('projectes/metricas_menu.html')
-	return HttpResponse(template.render(context, request))
-
-def selectMetricas(request, id):
-	metricas = Metrica.objects.get(proyecto=id)
+	metricas = Metrica.objects.all()
 	context = {'metricas': metricas}
-	template = loader.get_template('projectes/selectMetricas.html')
+	template = loader.get_template('projectes/metricas_menu.html')
 	return HttpResponse(template.render(context, request))
 
 def evaluaciones_menu(request):
@@ -243,4 +237,122 @@ def selectEvaluacion(request, id):
 	evaluacion = Evaluacion.objects.get(id=id)
 	context = {'evaluacion': evaluacion}
 	template = loader.get_template('projectes/selectEvaluacion.html')
+	return HttpResponse(template.render(context, request))
+
+def formEvaluacion(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        form = addEvaluacionForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+			evaluacion = Evaluacion(
+                titol=form.cleaned_data['titol'],
+            	nota_real=int(form.cleaned_data['nota_real']),
+            	nota_esperada=int(form.cleaned_data['nota_esperada']),
+            	comentari=form.cleaned_data['comentari'],
+            	dresponsabilidad=form.cleaned_data['dresponsabilidad'],
+            	nresponsabilidad=int(form.cleaned_data['nresponsabilidad']),
+            	destrategia=form.cleaned_data['destrategia'],
+            	nestrategia=int(form.cleaned_data['nestrategia']),
+            	dadquisicion=form.cleaned_data['dadquisicion'],
+            	nadquisicio=int(form.cleaned_data['nadquisicio']),
+            	drendimiento=form.cleaned_data['drendimiento'],
+            	nrendimiento=int(form.cleaned_data['nrendimiento']),
+            	dconformidad=form.cleaned_data['dconformidad'],
+            	nconformidad=int(form.cleaned_data['nconformidad']),
+            	dconducta=form.cleaned_data['dconducta'],
+            	nconducta=int(form.cleaned_data['nconducta']))
+			evaluacion.save()
+			return HttpResponseRedirect('..')
+    else:
+		form = addEvaluacionForm()
+
+    return render(request, 'projectes/form_evaluacion.html', {'form': form})
+
+
+def modificarEvaluacion(request, id):
+    item = Evaluacion.objects.get(id = id)
+    if request.method == 'POST':
+        form = modEvaluacionForm(request.POST)
+        if form.is_valid():
+            item.titol=form.cleaned_data['titol']
+            item.nota_real=form.cleaned_data['nota_real']
+            item.nota_esperada=form.cleaned_data['nota_esperada']
+            item.comentari=form.cleaned_data['comentari']
+            item.dresponsabilidad=form.cleaned_data['dresponsabilidad']
+            item.nresponsabilidad=form.cleaned_data['nresponsabilidad']
+            item.destrategia=form.cleaned_data['destrategia']
+            item.nestrategia=form.cleaned_data['nestrategia']
+            item.dadquisicion=form.cleaned_data['dadquisicion']
+            item.nadquisicio=form.cleaned_data['nadquisicio']
+            item.drendimiento=form.cleaned_data['drendimiento']
+            item.nrendimiento=form.cleaned_data['nrendimiento']
+            item.dconformidad=form.cleaned_data['dconformidad']
+            item.nconformidad=form.cleaned_data['nconformidad']
+            item.dconducta=form.cleaned_data['dconducta']
+            item.nconducta=form.cleaned_data['nconducta']
+            item.save()
+            return HttpResponseRedirect('../../..')
+    else:
+            form = modEvaluacionForm(initial={'titol': item.titol, 'nota_real': item.nota_real, 'nota_esperada': item.nota_esperada, 'comentari': item.comentari, 'dresponsabilidad': item.dresponsabilidad, 'nresponsabilidad': item.nresponsabilidad, 'destrategia': item.destrategia, 'nestrategia': item.nestrategia, 'dadquisicion': item.dadquisicion, 'nadquisicio': item.nadquisicio, 'drendimiento': item.drendimiento, 'nrendimiento': item.nrendimiento, 'dconformidad': item.dconformidad, 'nconformidad': item.nconformidad, 'dconducta': item.dconducta, 'nconducta': item.nconducta})
+
+    return render(request, 'projectes/form_evaluacion_mod.html', {'form': form, 'item': id})
+
+
+def eliminarEvaluacion(request, id):
+	evaluacion = Evaluacion.objects.get(id = id)
+	evaluacion.delete()
+	evaluaciones = Evaluacion.objects.all()
+	context = {'evaluaciones': evaluaciones}
+	template = loader.get_template('projectes/evaluaciones_menu.html')
+	return HttpResponse(template.render(context, request))
+
+def formMetrica(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        form = addMetricaForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+			metrica = Metrica(
+                dades=form.cleaned_data['dades'],
+            	descripcio=form.cleaned_data['descripcio'],
+            	proyecto=form.cleaned_data['proyecto'],
+            	tipo=form.cleaned_data['tipo'])
+			metrica.save()
+			return HttpResponseRedirect('..')
+    else:
+		form = addMetricaForm()
+
+    return render(request, 'projectes/form_metrica.html', {'form': form})
+
+
+def modificarMetrica(request, id):
+    item = Metrica.objects.get(id = id)
+    if request.method == 'POST':
+        form = modMetricaForm(request.POST)
+        if form.is_valid():
+            item.dades=form.cleaned_data['dades']
+            item.descripcio=form.cleaned_data['descripcio']
+            item.proyecto=form.cleaned_data['proyecto']
+            item.tipo=form.cleaned_data['tipo']
+            item.save()
+            return HttpResponseRedirect('../../..')
+    else:
+            form = modMetricaForm(initial={'dades': item.dades, 'descripcio': item.descripcio, 'proyecto': item.proyecto, 'tipo': item.tipo})
+
+    return render(request, 'projectes/form_metrica_mod.html', {'form': form, 'item': id})
+
+
+def eliminarMetrica(request, id):
+	metrica = Metrica.objects.get(id = id)
+	metrica.delete()
+	metricas = Metrica.objects.all()
+	context = {'metricas': metricas}
+	template = loader.get_template('projectes/metricas_menu.html')
+	return HttpResponse(template.render(context, request))
+
+def selectMetrica(request, id):
+	metrica = Metrica.objects.get(id=id)
+	context = {'metrica': metrica}
+	template = loader.get_template('projectes/selectMetrica.html')
 	return HttpResponse(template.render(context, request))

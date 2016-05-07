@@ -1,0 +1,19 @@
+<div id="formulari" class="row">
+    <form class="form-horizontal" action="./evaluacion/mod/{{item}}/" role="form" method="POST">
+    	{% csrf_token %}
+        {% for field in form %}
+            {% if field.errors %}
+            {% else %}
+                <div class="form-group">
+                    <label for="name" class="col-lg-2 col-lg-offset-2 control-label">{{ field.label }}</label>
+                    <div class="col-lg-6">
+                        {{ field }}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+        <div class="form-actions col-lg-2 col-lg-offset-4">
+            <button type="submit" class="btn btn-primary" style="width: 100%">Modificar</button>
+        </div>
+    </form>
+</div>
