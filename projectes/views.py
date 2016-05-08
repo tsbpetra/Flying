@@ -240,7 +240,6 @@ def selectEvaluacion(request, id):
 	template = loader.get_template('projectes/selectEvaluacion.html')
 	return HttpResponse(template.render(context, request))
 
-<<<<<<< HEAD
 def formEvaluacion(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -358,3 +357,10 @@ def selectMetrica(request, id):
 	context = {'metrica': metrica}
 	template = loader.get_template('projectes/selectMetrica.html')
 	return HttpResponse(template.render(context, request))
+
+def selectMetricasProjecte(request, id):
+	metricas = Metrica.objects.filter(proyecto=id)
+	response = ""
+	for m in metricas:
+		response = response + m.dades +"#"
+ 	return HttpResponse(response) 

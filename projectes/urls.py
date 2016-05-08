@@ -34,4 +34,6 @@ urlpatterns = [
     url(r'^metrica/mod/(?P<id>[0-9]+)/$', views.modificarMetrica, name='modificarMetrica'),
     url(r'^metrica/eliminar/(?P<id>[0-9]+)/$', views.eliminarMetrica, name='eliminarMetrica'),
     url(r'^metricas/metrica/(?P<id>[0-9]+)/$', views.selectMetrica, name='selectMetrica'),
+    url(r'^metricas/metrica/(?P<id>[0-9]+)/$', views.selectMetricasProjecte, name='selectMetricaProjecto'),
+
 ]
