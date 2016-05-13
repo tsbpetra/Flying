@@ -54,6 +54,8 @@ class Metrica(models.Model):
 	descripcio=models.CharField(max_length=500)
 	proyecto=models.ForeignKey(Propuesta, on_delete=models.CASCADE)
 	tipo = models.IntegerField(default=1, choices=STATUS_CHOICES_M)
+	def __str__(self):
+		return unicode(self.descripcio).encode('utf-8')
 
 class Alerta(models.Model):
 	titol=models.CharField(max_length=200)
