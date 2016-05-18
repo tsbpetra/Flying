@@ -25,21 +25,40 @@
     <!-- Page Heading -->
     <div id="row_heading" class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Proyecto: {{proyecto.titol}}</h1>
+            <h1 class="page-header">{{proyecto.titol}}</h1>
         </div>
     </div>
     <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
             <div id="cont_alertas" class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Descripción</h3>
-                    </div>
                     <div class="panel-body">
-                        <h4 class="panel-title"><strong>Inicio del proyecto:</strong> {{proyecto.data.date}}</h4>
-                        <br></br>
-                        <p>{{proyecto.descripcion}}</p>
-
+                        <table class="table table-bordered">
+						    <tbody>
+						    	<tr>
+						        	<td>Título del proyecto</td>
+						        	<td>{{proyecto.titol}}</td>
+						      	</tr>
+						    	<tr>
+						        	<td>Descripción</td>
+						        	<td>{{proyecto.descripcion}}</td>
+						      	</tr>
+						      	<tr>
+						        	<td>Fecha inicio</td>
+						        	<td>{{proyecto.data.date}}</td>
+						      	</tr>
+						      	<tr>
+						        	<td>Responsable</td>
+						        	<td>{{proyecto.responsable}}</td>
+						      	</tr>
+						      	<tr>
+						        	<td>Presupuesto</td>
+						        	<td>{{proyecto.presupuesto}}</td>
+						      	</tr>
+						    </tbody>
+					    </table>
+					    <br>
+					    <br>
                         <script src="https://code.highcharts.com/highcharts.js"></script>
                         <script src="https://code.highcharts.com/modules/exporting.js"></script>
                         <script async src="//jsfiddle.net/dzyxgdvy/embed/"></script>
@@ -72,19 +91,17 @@
                                         width: 1,
                                         color: '#808080'
                                     }]
-                                },
-                                legend: {
-                                    layout: 'vertical',
-                                    align: 'right',
-                                    verticalAlign: 'middle',
-                                    borderWidth: 0
-                                },
+                                }
                                 });
                                 var dades = data.split("#");
                                 for(var i = 0; i < dades.length - 1; i++){
                                     chart.addSeries({
+<<<<<<< HEAD
                                         name: 'ADBE',
                                         data: JON.parse("[" + dades[i] + "]")
+=======
+                                        data: JSON.parse("[" + dades[i] + "]")
+>>>>>>> b3bbb402d64a41a39f3cc994e92540566322344b
                                     }, false);
                                 }
                                 chart.yAxis[0].isDirty = true;
@@ -93,11 +110,13 @@
                         });
                         </script>
                         <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-
+                        <br>
+                        <br>
                         <script type="text/javascript">
-                        	var chart;
-                        	$(document).ready(function () {
-	                            chart = new Highcharts.Chart({
+                        	$.ajax({
+                            url: 'metricas/projecto/{{proyecto.id}}',
+                            success: function(data) {
+                                var chart = new Highcharts.Chart({
 	                                chart: {
 	                                    plotBackgroundColor: null,
 	                                    plotBorderWidth: null,
@@ -119,13 +138,28 @@
 							        },
 							        credits: {
 							            enabled: false
-							        },
-							        series: [{
-							            name: 'Respecto al año anterior',
-							            data: [2, 3, 2, 4, 5, 6, 4, 4, 2, 1, -1, 2]
-							        }]
+							        }
 						    	});
-							});
+						    	var dades = data.split("#");
+						    	var dades1 = [];
+						    	var dades2 = [];
+                                for(var i = 0; i < dades.length - 1; i++){
+                                	if (i == 0){
+                                		dades1 = dades[i].split(",");
+                                	}else if (i == 1){
+                                		dades2 = dades[i].split(",");
+                                		for(var n = 0; n < dades2.length - 1; n++ ){
+                                			dades2[n] = dades2[n] - dades1[n];
+                                		}
+                                	}
+                                }
+                                chart.addSeries({
+                                        data: JSON.parse("[" + dades2 + "]")
+                                    }, false);
+                                chart.yAxis[0].isDirty = true;
+                                chart.redraw();
+							}
+						});
                         </script>
 						<div id="desempenio" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
