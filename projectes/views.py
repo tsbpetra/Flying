@@ -363,4 +363,12 @@ def selectMetricasProjecte(request, id):
 	response = ""
 	for m in metricas:
 		response = response + m.dades +"#"
- 	return HttpResponse(response) 
+ 	return HttpResponse(response)
+
+def selectPresupostsProjectes(request):
+    proyectos = Propuesta.objects.all()
+    response = "["
+    for p in proyectos:
+        response = response + "{name: '" + p.titol + "' , y: " + str(p.presupuesto) + "}, "
+    response = response + "]"
+    return HttpResponse(response)
