@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
-from .eleccions import * 
+from .eleccions import *
 
 class Principio(models.Model):
 	titol=models.CharField(max_length=200)
 	descripcio=models.CharField(max_length=200)
 	def __str__(self):
 		return unicode(self.titol).encode('utf-8')
-	
+
 class Objetivo(models.Model):
 	nom=models.CharField(max_length=200)
 	descripcio=models.CharField(max_length=500)
@@ -46,6 +46,7 @@ class Propuesta(models.Model):
 	principio=models.ForeignKey(Principio, on_delete=models.CASCADE)
 	evaluacion =models.ForeignKey(Evaluacion, on_delete=models.CASCADE)
 	estado = models.IntegerField(default=1, choices=STATUS_CHOICES_P)
+	#alineacion = models.BooleanField(default=True)
 	def __str__(self):
 		return unicode(self.titol).encode('utf-8')
 

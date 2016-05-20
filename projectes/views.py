@@ -217,8 +217,8 @@ def eliminarPrin(request, id):
 	return HttpResponse(template.render(context, request))
 
 def presupuestos_menu(request):
-	proyectos = Propuesta.objects.all()
-	context = {'proyectos': proyectos}
+	objetivos = Objetivo.objects.all()
+	context = {'objetivos': objetivos}
 	template = loader.get_template('projectes/presupuestos_menu.html')
 	return HttpResponse(template.render(context, request))
 
@@ -370,5 +370,20 @@ def selectPresupostsProjectes(request):
     response = "["
     for p in proyectos:
         response = response + "{name: '" + p.titol + "' , y: " + str(p.presupuesto) + "}, "
+    response = response + "]"
+    return HttpResponse(response)
+
+def selectPresupostObjectius(request):
+    objetivos = Objetivo.objects.all()
+    proyectos = Propuesta.objects.all()
+    response = "["
+    for o in objetivos:
+        presupost = 0
+        for p in proyectos:
+            nomObj = str(o.nom)
+            objPro = str(p.objetivo)
+            if nomObj == objPro:
+                presupost = presupost + p.presupuesto
+        response = response + "{name: '" + o.nom + "' , y: " + str(presupost) + "}, "
     response = response + "]"
     return HttpResponse(response)
