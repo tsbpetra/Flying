@@ -35,3 +35,7 @@ p#revisado{
 a{
 	cursor: pointer;
 }
+
+button#comparacion{
+	width: auto !important;
+}

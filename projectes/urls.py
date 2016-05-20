@@ -38,6 +38,5 @@ urlpatterns = [
     url(r'^metricas/projecto/(?P<id>[0-9]+)/$', views.selectMetricasProjecte, name='selectMetrica'),
     url(r'^presupuestos/proyectos/$', views.selectPresupostsProjectes, name='selectPresupostsProjectes'),
     url(r'^presupuestos/objetivos/$', views.selectPresupostObjectius, name='selectPresupostObjectius'),
-
-
+    url(r'^proyecto/objetivo/(?P<id>[0-9]+)/$', views.selectObjetivoProyecto, name='selectObjetivoProyecto'),
 ]

@@ -343,7 +343,6 @@ def modificarMetrica(request, id):
 
     return render(request, 'projectes/form_metrica_mod.html', {'form': form, 'item': id})
 
-
 def eliminarMetrica(request, id):
 	metrica = Metrica.objects.get(id = id)
 	metrica.delete()
@@ -387,3 +386,23 @@ def selectPresupostObjectius(request):
         response = response + "{name: '" + o.nom + "' , y: " + str(presupost) + "}, "
     response = response + "]"
     return HttpResponse(response)
+
+def selectObjetivoProyecto(request, id):
+	propuestas = Propuesta.objects.filter(Q(objetivo=id) & Q(estado=4))
+	evaluacion = "["
+	response = "["
+	categories = "["
+	evaluacion_esperada = "["
+	for x in propuestas:
+		categories = categories + "'"+x.titol+"',"
+		evaluacion = evaluacion + "{name: Nota real , data: " + str(x.evaluacion.nota_real) + "}, "
+		evaluacion_esperada = evaluacion_esperada + "{name: Nota esperada , data: " + str(x.evaluacion.nota_esperada) + "}, "
+		response = response + "{name: '" + x.titol + "' , y: " + str(x.presupuesto) + "}, "
+	response = response + "]"
+	categories = categories + "]"
+	evaluacion = evaluacion + "]"
+	evaluacion_esperada = evaluacion_esperada + "]"
+
+	context = {'response': response, 'evaluacion': evaluacion, 'categories': categories}
+	template = loader.get_template('projectes/comparacion.html')
+	return HttpResponse(template.render(context, request))
