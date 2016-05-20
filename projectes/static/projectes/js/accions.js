@@ -333,3 +333,12 @@ function selectMetrica(id){
 		}
 	});
 }
+
+function cargarInfo(id){
+	$.ajax({
+		url: 'proyecto/objetivo/'+id,
+		success: function(data) {
+			$('#contingut').html(data);
+		}
+	});
+}

@@ -35,7 +35,25 @@
                                         <p id="alert_descripcio">
                                             {{propuesta.descripcion}}
                                         </p>
-                                        <p></p>
+                                        <button id="comparacion"  onclick="cargarInfo({{propuesta.id}})" type="button" class="btn btn-success buton_alert" data-toggle="modal" data-target="#{{propuesta.id}}">Comparación</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id={{propuesta.id}} role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h3 class="modal-title">Comparación Gasto proyecto y resultado del proyecto</h3>
+                                            <br/>
+                                            <h5><a href="#">Proyecto: {{propuesta.titol}}</a></h5>
+                                        </div>
+                                        <div id="contingut" class="modal-body">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

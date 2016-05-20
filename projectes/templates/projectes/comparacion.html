@@ -1,0 +1,87 @@
+<div class="row">
+	<div id="primer" class="col-lg-6" style="background-color:red">
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+            <script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+            <script type="text/javascript">
+                        var chart = new Highcharts.Chart({
+                            chart: {
+                                plotBackgroundColor: null,
+                                plotBorderWidth: null,
+                                plotShadow: false,
+                                type: 'pie',
+                                renderTo: 'primer'
+                            },
+                            title: {
+                                text: 'Presupuesto objetivo'
+                            },
+                            plotOptions: {
+                                pie: {
+                                    allowPointSelect: true,
+                                    cursor: 'pointer',
+                                    dataLabels: {
+                                        enabled: false
+                                    },
+                                    showInLegend: true
+                                }
+                            },
+                        });
+                        {% autoescape off %}
+                        	var d = JSON.stringify(eval("({{ response }})"));
+			            {% endautoescape %}
+                        chart.addSeries({
+                            name: 'Presupuesto',
+                            colorByPoint: true,
+                            data: JSON.parse(d)
+                        }, false);
+                        chart.redraw();;
+            </script>
+	</div>
+	<div id="segon" class="col-lg-6" style="background-color:blue">
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+            <script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+            <script type="text/javascript">
+            			{% autoescape off %}
+                        	var name = JSON.stringify(eval("({{ categories }})"));
+			            {% endautoescape %}
+                        var chart2 = new Highcharts.Chart({
+                            chart: {
+                                plotBackgroundColor: null,
+                                plotBorderWidth: null,
+                                plotShadow: false,
+                                type: 'bar',
+                                renderTo: 'segon'
+                            },
+                            xAxis: {
+					            categories: JSON.parse(name),
+					            title: {
+					                text: null
+					            }
+					        },
+                            title: {
+                                text: 'Presupuesto objetivo'
+                            },
+                            plotOptions: {
+                                pie: {
+                                    allowPointSelect: true,
+                                    cursor: 'pointer',
+                                    dataLabels: {
+                                        enabled: false
+                                    },
+                                    showInLegend: true
+                                }
+                            },
+                        });
+                        {% autoescape off %}
+                        	var d = JSON.stringify(eval("({{ response }})"));
+			            {% endautoescape %}
+                        chart2.addSeries({
+                            name: 'Presupuesto',
+                            colorByPoint: true,
+                            data: JSON.parse(d)
+                        }, false);
+                        chart2.redraw();;
+            </script>
+	</div>
+</div>
