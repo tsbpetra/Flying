@@ -388,6 +388,6 @@ def selectObjetivoProyecto(request, id):
 	evaluacion = evaluacion + "]"
 	evaluacion_esperada = evaluacion_esperada + "]"
 	
-	context = {'response': response, 'evaluacion': evaluacion, 'categories': categories}
+	context = {'response': response, 'evaluacion': evaluacion, 'categories': categories,'id': id}
 	template = loader.get_template('projectes/comparacion.html')
 	return HttpResponse(template.render(context, request))
