@@ -394,9 +394,17 @@ def selectObjetivoProyecto(request, id):
 	categories = "["
 	evaluacion_esperada = "["
 	for x in propuestas:
+		notes=[]
+		notes.append(x.evaluacion.nresponsabilidad)
+		notes.append(x.evaluacion.nestrategia)
+		notes.append(x.evaluacion.nadquisicio)
+		notes.append(x.evaluacion.nrendimiento)
+		notes.append(x.evaluacion.nconformidad)
+		notes.append(x.evaluacion.nconducta)
+		mitja = sum(notes)/len(notes)
 		categories = categories + "'"+x.titol+"',"
-		evaluacion = evaluacion + "{name: 'Nota real' , y: " + str(x.evaluacion.nota_real) + "}, "
-		evaluacion_esperada = evaluacion_esperada + "{name: 'Nota esperada' , y: " + str(x.evaluacion.nota_esperada) + "}, "
+		evaluacion = evaluacion + "{name: 'Nota real' , y: " + str(mitja) + "}, "
+		evaluacion_esperada = evaluacion_esperada + "{name: 'Nota minima' , y: " + str(x.evaluacion.nota_esperada) + "}, "
 		response = response + "{name: '" + x.titol + "' , y: " + str(x.presupuesto) + "}, "
 	response = response + "]"
 	categories = categories + "]"

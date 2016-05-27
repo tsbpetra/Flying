@@ -89,13 +89,14 @@
                             var real = JSON.stringify(eval("({{ evaluacion }})"));
                             var esperada = JSON.stringify(eval("({{ evaluacion_esperada }})"));
                         {% endautoescape %}
+                        var chart2 = null
                         var chart2 = new Highcharts.Chart({
                         chart: {
                             type: 'column',
                             renderTo: 'segon'
                         },
                         title: {
-                            text: 'Nota real / Nota esperada'
+                            text: 'Nota real / Nota minima'
                         },
                         xAxis: {
                             categories: JSON.parse(categories),
@@ -118,7 +119,7 @@
                             data: JSON.parse(real)
 
                         }, {
-                            name: 'Nota esperada',
+                            name: 'Nota minima',
                             data: JSON.parse(esperada)
 
                         }]
