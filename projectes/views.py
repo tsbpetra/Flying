@@ -11,7 +11,37 @@ from django.http import JsonResponse
 
 def index(request):
     template = loader.get_template('projectes/index.html')
+    generarAlertes()
     return HttpResponse(template.render(request))
+
+def generarAlertes():
+	metricas = Metrica.objects.filter(alerta_creada=0)
+	for metrica in metricas:
+		resultat = metrica.dades.split('@', 1 )
+		res0 = resultat[0].split(',')
+		res0 = map(int, res0)
+		res1 = resultat[1].split(',')
+		res1 = map(int, res1)
+		resta = sum(res1) - sum(res0)
+		if resta <= 0:
+			prio = 1
+			if resta <= - 10:
+				prio = 3
+			elif resta > -10  and resta < -5:
+				prio = 2
+
+			alerta = Alerta(
+                titol="Alerta "+metrica.descripcio,
+            	descripcio="El anyo pasado teniamos mejores resultados para la metrica del proyecto: "+metrica.proyecto.titol,
+            	projecte=metrica.proyecto,
+            	metrica=metrica,
+            	prioridad=prio,
+            	data=timezone.now()
+            	)
+			alerta.save()
+			metrica.alerta_creada = 1
+			metrica.save()
+
 
 def alertas_menu(request):
 	alertas = Alerta.objects.filter(llegit=0)
