@@ -338,7 +338,7 @@ function cargarInfo(id){
 	$.ajax({
 		url: 'proyecto/objetivo/'+id,
 		success: function(data) {
-			$('#contingut').html(data);
+			$('#page-wrapper').html(data);
 		}
 	});
 }

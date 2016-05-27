@@ -217,8 +217,8 @@ def eliminarPrin(request, id):
 	return HttpResponse(template.render(context, request))
 
 def presupuestos_menu(request):
-	proyectos = Propuesta.objects.all()
-	context = {'proyectos': proyectos}
+	objetivos = Objetivo.objects.all()
+	context = {'objetivos': objetivos}
 	template = loader.get_template('projectes/presupuestos_menu.html')
 	return HttpResponse(template.render(context, request))
 
@@ -372,6 +372,21 @@ def selectPresupostsProjectes(request):
     response = response + "]"
     return HttpResponse(response)
 
+def selectPresupostObjectius(request):
+    objetivos = Objetivo.objects.all()
+    proyectos = Propuesta.objects.all()
+    response = "["
+    for o in objetivos:
+        presupost = 0
+        for p in proyectos:
+            nomObj = str(o.nom)
+            objPro = str(p.objetivo)
+            if nomObj == objPro:
+                presupost = presupost + p.presupuesto
+        response = response + "{name: '" + o.nom + "' , y: " + str(presupost) + "}, "
+    response = response + "]"
+    return HttpResponse(response)
+
 def selectObjetivoProyecto(request, id):
 	propuestas = Propuesta.objects.filter(Q(objetivo=id) & Q(estado=4))
 	evaluacion = "["
@@ -380,14 +395,13 @@ def selectObjetivoProyecto(request, id):
 	evaluacion_esperada = "["
 	for x in propuestas:
 		categories = categories + "'"+x.titol+"',"
-		evaluacion = evaluacion + "{name: Nota real , data: " + str(x.evaluacion.nota_real) + "}, "
-		evaluacion_esperada = evaluacion_esperada + "{name: Nota esperada , data: " + str(x.evaluacion.nota_esperada) + "}, "
+		evaluacion = evaluacion + "{name: 'Nota real' , y: " + str(x.evaluacion.nota_real) + "}, "
+		evaluacion_esperada = evaluacion_esperada + "{name: 'Nota esperada' , y: " + str(x.evaluacion.nota_esperada) + "}, "
 		response = response + "{name: '" + x.titol + "' , y: " + str(x.presupuesto) + "}, "
 	response = response + "]"
 	categories = categories + "]"
 	evaluacion = evaluacion + "]"
 	evaluacion_esperada = evaluacion_esperada + "]"
-	
-	context = {'response': response, 'evaluacion': evaluacion, 'categories': categories,'id': id}
+	context = {'response': response, 'evaluacion': evaluacion, 'evaluacion_esperada':evaluacion_esperada ,'categories': categories,'id': id}
 	template = loader.get_template('projectes/comparacion.html')
 	return HttpResponse(template.render(context, request))
