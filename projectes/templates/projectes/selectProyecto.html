@@ -32,7 +32,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div id="cont_alertas" class="panel panel-default">
-                    <div class="panel-body">
+                    <div id="afegir" class="panel-body">
                         <table class="table table-bordered">
 						    <tbody>
 						    	<tr>
@@ -57,8 +57,6 @@
 						      	</tr>
 						    </tbody>
 					    </table>
-					    <br>
-					    <br>
                         <script src="https://code.highcharts.com/highcharts.js"></script>
                         <script src="https://code.highcharts.com/modules/exporting.js"></script>
                         <script async src="//jsfiddle.net/dzyxgdvy/embed/"></script>
@@ -67,97 +65,105 @@
                         $.ajax({
                             url: 'metricas/projecto/{{proyecto.id}}',
                             success: function(data) {
-                                var chart = new Highcharts.Chart({
-                                chart: {
-                                    plotBackgroundColor: null,
-                                    plotBorderWidth: null,
-                                    plotShadow: false,
-                                    renderTo: 'container'
-                                },
-                                title: {
-                                    text: 'Reservas de vuelos',
-                                    x: -20 //center
-                                },
-                                xAxis: {
-                                    categories: ['En', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
-                                        'Jul', 'Ag', 'Set', 'Oct', 'Nov', 'Dec']
-                                },
-                                yAxis: {
-                                    title: {
-                                        text: 'Nº de reservas'
-                                    },
-                                    plotLines: [{
-                                        value: 0,
-                                        width: 1,
-                                        color: '#808080'
-                                    }]
-                                }
-                                });
                                 var dades = data.split("#");
                                 for(var i = 0; i < dades.length - 1; i++){
-                                    chart.addSeries({
-                                        name: 'ADBE',
-                                        data: JSON.parse("[" + dades[i] + "]")
-                                    }, false);
+                                    $("#afegir").append('<br><hr><hr><br>');
+
+                                    /*GRÁFICA DE DADES DE DOS AÑS*/
+                                    var nombre = "container"+i;
+                                    $("#afegir").append('<div id="'+nombre+'" style="min-width: 310px; height: 400px; margin: 0 auto"></div>');
+                                    var chart = new Highcharts.Chart({
+                                        chart: {
+                                            plotBackgroundColor: null,
+                                            plotBorderWidth: null,
+                                            plotShadow: false,
+                                            renderTo: nombre                                        },
+                                        title: {
+                                            text: 'Reservas de vuelos',
+                                            x: -20 //center
+                                        },
+                                        xAxis: {
+                                            categories: ['En', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+                                                'Jul', 'Ag', 'Set', 'Oct', 'Nov', 'Dec']
+                                        },
+                                        yAxis: {
+                                            title: {
+                                                text: 'Nº de reservas'
+                                            },
+                                            plotLines: [{
+                                                value: 0,
+                                                width: 1,
+                                                color: '#808080'
+                                            }]
+                                        }
+                                        });
+                                        var any;
+                                        var dadesSplit = dades[i].split("@");
+                                        for(var j = 0; j < dadesSplit.length; j++){
+                                            if(j == 0){
+                                                any="2015";
+                                            } else {
+                                                any="2016";
+                                            }
+                                            chart.addSeries({
+                                                name: any.toString(),
+                                                data: JSON.parse("[" + dadesSplit[j] + "]")
+                                            }, false);
+                                        }
+                                        chart.yAxis[0].isDirty = true;
+                                        chart.redraw();
+
+                                        /*GRÁFICA DE DADES RESULTANTS*/
+                                        nombre = "desempenio"+i
+                                        $("#afegir").append('<div id="'+nombre+'" style="min-width: 310px; height: 400px; margin: 0 auto"></div>');
+                                        var chart2 = new Highcharts.Chart({
+                                            chart: {
+                                                plotBackgroundColor: null,
+                                                plotBorderWidth: null,
+                                                plotShadow: false,
+                                                type: 'area',
+                                                renderTo: nombre
+                                            },
+                                            title: {
+                                                text: 'Posición global'
+                                            },
+                                            yAxis: {
+                                                title: {
+                                                    text: 'Diferencia respecto al año anterior'
+                                                }
+                                            },
+                                            xAxis: {
+                                                categories: ['En', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+                                                                                'Jul', 'Ag', 'Set', 'Oct', 'Nov', 'Dec']
+                                            },
+                                            credits: {
+                                                enabled: false
+                                            }
+                                        });
+                                        var dadesInici = dades[i].split("@");
+                                        var dades1 = [];
+                                        var dades2 = [];
+                                        for(var it = 0; it < dadesInici.length; it++){
+                                            if (it == 0){
+                                                dades1 = dadesInici[it].split(",");
+                                            }else if (it == 1){
+                                                dades2 = dadesInici[it].split(",");
+                                                for(var n = 0; n < dades2.length; n++ ){
+                                                    dades2[n] = dades2[n] - dades1[n];
+                                                }
+                                            }
+                                        }
+                                        chart2.addSeries({
+                                                data: JSON.parse("[" + dades2 + "]")
+                                            }, false);
+                                        chart2.yAxis[0].isDirty = true;
+                                        chart2.redraw();
+                                    }
                                 }
-                                chart.yAxis[0].isDirty = true;
-                                chart.redraw();
-                            }
-                        });
+                            });
                         </script>
-                        <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
                         <br>
                         <br>
-                        <script type="text/javascript">
-                        	$.ajax({
-                            url: 'metricas/projecto/{{proyecto.id}}',
-                            success: function(data) {
-                                var chart = new Highcharts.Chart({
-	                                chart: {
-	                                    plotBackgroundColor: null,
-	                                    plotBorderWidth: null,
-	                                    plotShadow: false,
-	                                    type: 'area',
-	                                    renderTo: 'desempenio'
-	                                },
-							        title: {
-							            text: 'Posición global'
-							        },
-							        yAxis: {
-	                                    title: {
-	                                        text: 'Diferencia respecto al año anterior'
-	                                    }
-                                	},
-							        xAxis: {
-							            categories: ['En', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
-							                                            'Jul', 'Ag', 'Set', 'Oct', 'Nov', 'Dec']
-							        },
-							        credits: {
-							            enabled: false
-							        }
-						    	});
-						    	var dades = data.split("#");
-						    	var dades1 = [];
-						    	var dades2 = [];
-                                for(var i = 0; i < dades.length - 1; i++){
-                                	if (i == 0){
-                                		dades1 = dades[i].split(",");
-                                	}else if (i == 1){
-                                		dades2 = dades[i].split(",");
-                                		for(var n = 0; n < dades2.length - 1; n++ ){
-                                			dades2[n] = dades2[n] - dades1[n];
-                                		}
-                                	}
-                                }
-                                chart.addSeries({
-                                        data: JSON.parse("[" + dades2 + "]")
-                                    }, false);
-                                chart.yAxis[0].isDirty = true;
-                                chart.redraw();
-							}
-						});
-                        </script>
-						<div id="desempenio" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
                     </div>
                 </div>
         </div>
