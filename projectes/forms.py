@@ -70,13 +70,11 @@ class modEvaluacionForm(forms.Form):
 	nconducta = forms.IntegerField(label="Nota conducta", required=True)
 
 class addMetricaForm(forms.Form):
-	dades = forms.DateField(widget=SelectDateWidget, label="Fecha propuesta")
-	descripcio = forms.CharField(label="Descripcion",max_length=500, required=True, widget= forms.TextInput(attrs={'style': 'width:100%'}))
+	descripcio = forms.CharField(label="Descripcion", max_length=500, required=True, widget= forms.TextInput(attrs={'style': 'width:100%'}))
 	proyecto = forms.ModelChoiceField(queryset=Propuesta.objects.all(), required=True)
 	tipo = forms.ChoiceField(choices=(STATUS_CHOICES_M), required=False)
 
 class modMetricaForm(forms.Form):
-	dades = forms.DateField(widget=SelectDateWidget, label="Fecha propuesta")
 	descripcio = forms.CharField(label="Descripcion",max_length=500, required=True, widget= forms.TextInput(attrs={'style': 'width:100%'}))
 	proyecto = forms.ModelChoiceField(queryset=Propuesta.objects.all(), required=True)
 	tipo = forms.ChoiceField(choices=(STATUS_CHOICES_M), required=False)

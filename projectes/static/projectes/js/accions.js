@@ -154,7 +154,7 @@ function getFormPrincipio(){
 
 function calidad(){
 	$.ajax({
-		url: 'proyectos/3',
+		url: 'proyectos/1',
 		success: function(data) {
 			$('#cont_alertas').html(data);
 		}
@@ -178,7 +178,7 @@ function innov(){
 }
 function seguridad(){
 	$.ajax({
-		url: 'proyectos/1',
+		url: 'proyectos/3',
 		success: function(data) {
 			$('#cont_alertas').html(data);
 		}

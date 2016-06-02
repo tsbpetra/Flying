@@ -345,8 +345,7 @@ def formMetrica(request):
         # check whether it's valid:
         if form.is_valid():
 			metrica = Metrica(
-                dades=form.cleaned_data['dades'],
-            	descripcio=form.cleaned_data['descripcio'],
+                descripcio=form.cleaned_data['descripcio'],
             	proyecto=form.cleaned_data['proyecto'],
             	tipo=form.cleaned_data['tipo'])
 			metrica.save()
@@ -362,14 +361,13 @@ def modificarMetrica(request, id):
     if request.method == 'POST':
         form = modMetricaForm(request.POST)
         if form.is_valid():
-            item.dades=form.cleaned_data['dades']
             item.descripcio=form.cleaned_data['descripcio']
             item.proyecto=form.cleaned_data['proyecto']
             item.tipo=form.cleaned_data['tipo']
             item.save()
             return HttpResponseRedirect('../../..')
     else:
-            form = modMetricaForm(initial={'dades': item.dades, 'descripcio': item.descripcio, 'proyecto': item.proyecto, 'tipo': item.tipo})
+            form = modMetricaForm(initial={'descripcio': item.descripcio, 'proyecto': item.proyecto, 'tipo': item.tipo})
 
     return render(request, 'projectes/form_metrica_mod.html', {'form': form, 'item': id})
 

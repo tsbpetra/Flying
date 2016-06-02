@@ -51,7 +51,7 @@ class Propuesta(models.Model):
 		return unicode(self.titol).encode('utf-8')
 
 class Metrica(models.Model):
-	dades=models.CharField(max_length=2000)
+	dades=models.CharField(max_length=2000, default='0,0,0,0,0,0,0,0,0,0,0,0@0,0,0,0,0,0,0,0,0,0,0,0')
 	descripcio=models.CharField(max_length=500)
 	proyecto=models.ForeignKey(Propuesta, on_delete=models.CASCADE)
 	tipo = models.IntegerField(default=1, choices=STATUS_CHOICES_M)

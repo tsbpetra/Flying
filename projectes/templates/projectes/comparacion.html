@@ -1,133 +1,82 @@
 <div class="row-fluid">
 	<div id="primer" class="span12">
 		<script src="https://code.highcharts.com/highcharts.js"></script>
-            <script src="https://code.highcharts.com/modules/exporting.js"></script>
-
-            <script type="text/javascript">
-                        var chart = new Highcharts.Chart({
-                            chart: {
-                                plotBackgroundColor: null,
-                                plotBorderWidth: null,
-                                plotShadow: false,
-                                type: 'pie',
-                                renderTo: 'primer'
-                            },
-                            title: {
-                                text: 'Presupuesto objetivo'
-                            },
-                            plotOptions: {
-                                pie: {
-                                    allowPointSelect: true,
-                                    cursor: 'pointer',
-                                    dataLabels: {
-                                        enabled: false
-                                    },
-                                    showInLegend: true
-                                }
-                            },
-                        });
-                        {% autoescape off %}
-                        	var d = JSON.stringify(eval("({{ response }})"));
-			            {% endautoescape %}
-                        chart.addSeries({
-                            name: 'Presupuesto',
-                            colorByPoint: true,
-                            data: JSON.parse(d)
-                        }, false);
-                        chart.redraw();
-
-            </script>
+		<script src="https://code.highcharts.com/modules/exporting.js"></script>
+		<script type="text/javascript">
+			var chart = new Highcharts.Chart({
+				chart: {
+					plotBackgroundColor: null,
+					plotBorderWidth: null,
+					plotShadow: false,
+					type: 'pie',
+					renderTo: 'primer'
+				},
+				title: {
+					text: 'Presupuesto objetivo'
+				},
+				plotOptions: {
+					pie: {
+						allowPointSelect: true,
+						cursor: 'pointer',
+						dataLabels: {
+							enabled: false
+						},
+						showInLegend: true
+					}
+				},
+			}); {% autoescape off %}
+			var d = JSON.stringify(eval("({{ response }})")); {% endautoescape %}
+			chart.addSeries({
+				name: 'Presupuesto',
+				colorByPoint: true,
+				data: JSON.parse(d)
+			}, false);
+			chart.redraw();
+		</script>
 	</div>
+
 	<div id="segon" class="span12">
-		    <script src="https://code.highcharts.com/highcharts.js"></script>
-            <script src="https://code.highcharts.com/modules/exporting.js"></script>
-
-            <script type="text/javascript">
-            /*
-            			{% autoescape off %}
-                        	var name = JSON.stringify(eval("({{ categories }})"));
-			            {% endautoescape %}
-                        var chart2 = new Highcharts.Chart({
-                            chart: {
-                                plotBackgroundColor: null,
-                                plotBorderWidth: null,
-                                plotShadow: false,
-                                type: 'bar',
-                                renderTo: 'segon'
-                            },
-                            xAxis: {
-					            categories: JSON.parse(name),
-					            title: {
-					                text: null
-					            }
-					        },
-                            title: {
-                                text: 'Nota'
-                            },
-                            plotOptions: {
-                                pie: {
-                                    allowPointSelect: true,
-                                    cursor: 'pointer',
-                                    dataLabels: {
-                                        enabled: false
-                                    },
-                                    showInLegend: true
-                                }
-                            },
-                        });
-                        {% autoescape off %}
-                        	var d = JSON.stringify(eval("({{ evaluacion }})"));
-			            {% endautoescape %}
-                        chart2.addSeries({
-                            name: "Nota esperada",
-                            colorByPoint: true,
-                            data: JSON.parse(d)
-                        }, false);
-                        chart2.redraw();*/
-                        {% autoescape off %}
-                            var categories = JSON.stringify(eval("({{ categories }})"));
-                            var real = JSON.stringify(eval("({{ evaluacion }})"));
-                            var esperada = JSON.stringify(eval("({{ evaluacion_esperada }})"));
-                        {% endautoescape %}
-                        var chart2 = null
-                        var chart2 = new Highcharts.Chart({
-                        chart: {
-                            type: 'column',
-                            renderTo: 'segon'
-                        },
-                        title: {
-                            text: 'Nota real / Nota minima'
-                        },
-                        xAxis: {
-                            categories: JSON.parse(categories),
-                            crosshair: true
-                        },
-                        yAxis: {
-                            min: 0,
-                            title: {
-                                text: 'Rainfall (mm)'
-                            }
-                        },
-                        plotOptions: {
-                            column: {
-                                pointPadding: 0.2,
-                                borderWidth: 0
-                            }
-                        },
-                        series: [{
-                            name: 'Nota real',
-                            data: JSON.parse(real)
-
-                        }, {
-                            name: 'Nota minima',
-                            data: JSON.parse(esperada)
-
-                        }]
-                    });
-                    chart2.redraw();
-            </script>
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+		<script src="https://code.highcharts.com/modules/exporting.js"></script>
+		<script type="text/javascript">
+			{% autoescape off %}
+			var categories = JSON.stringify(eval("({{ categories }})"));
+			var real = JSON.stringify(eval("({{ evaluacion }})"));
+			var esperada = JSON.stringify(eval("({{ evaluacion_esperada }})")); {% endautoescape %}
+			var chart2 = null
+			var chart2 = new Highcharts.Chart({
+				chart: {
+					type: 'column',
+					renderTo: 'segon'
+				},
+				title: {
+					text: 'Nota real / Nota minima'
+				},
+				xAxis: {
+					categories: JSON.parse(categories),
+					crosshair: true
+				},
+				yAxis: {
+					min: 0,
+					title: {
+						text: 'Rainfall (mm)'
+					}
+				},
+				plotOptions: {
+					column: {
+						pointPadding: 0.2,
+						borderWidth: 0
+					}
+				},
+				series: [{
+					name: 'Nota real',
+					data: JSON.parse(real)
+				}, {
+					name: 'Nota minima',
+					data: JSON.parse(esperada)
+				}]
+			});
+			chart2.redraw();
+		</script>
 	</div>
 </div>
-<script type="text/javascript">
-	
-</script>
